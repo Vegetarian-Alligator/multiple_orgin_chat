@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>websocketd count example</title>
+    <style>
+      #count {
+        font: bold 60px arial;
+        margin: auto;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="count"></div>
+	<form onsubmit="return SendData();">
+	Name	<input type="text" id="name"/><br>
+	Message	<input type="text" id="message" value="message">
+	<br><input type="submit">
+	</form>
+
+    <script>
+	console.log("---- (start)");
+       
+	 var ws;
+	
+	if (!ws) {
+	 ws = new WebSocket('ws://69.28.84.74:8080/');
+	console.log("New Websocket Created!");
+	}
+	function SendData(){
+		console.log("SendData() is executed.");
+		console.log("The Value about to be sent is: " + document.getElementById("message").value);		
+		ws.send(document.getElementById("message").value);
+		return false;
+	};
+
+
+		console.log("SendData() is passed");
+
+      	ws.onopen = function() {
+	document.body.style.backgroundColor = '#66FF33';
+    };
+
+      ws.onclose = function() {
+        document.body.style.backgroundColor = null;
+      };
+
+      ws.onmessage = function(event) {
+	if (event.data) {  
+      		document.getElementById('count').textContent = event.data;
+	}
+	 console.log("The value getting returned is: " + event.data + "||  Event: readystate" + ws.readyState);
+	 	
+       };
+
+console.log("----- end")
+    </script>
+
+  </body>
+</html>

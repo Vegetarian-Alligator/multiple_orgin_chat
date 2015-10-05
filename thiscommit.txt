@@ -1,0 +1,1 @@
+This Commit: First working version.  This javascript (index.html) and interact.c will reliably open and maintain a connection, send data to the server, and display processed data (from the server) back to the user using websockets and websocketsD.
